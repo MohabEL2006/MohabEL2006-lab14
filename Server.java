@@ -1,10 +1,11 @@
+import java.net.Socket;
 import java.time.*;
 import java.util.ArrayList;
 
-
-public class Server {
+public class Server extends Socket{
 
     private int port;
+    private ArrayList<Client> clients;
 
     public Server (int port) {
         this.port = port;
@@ -14,9 +15,12 @@ public class Server {
 
     }
 
-
     public void disconnect() {
 
+    }
+
+    public void addClient(ArrayList clientList) {
+        
     }
 
     public ArrayList<LocalDateTime> getConnectedTimes() {
