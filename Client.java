@@ -1,9 +1,6 @@
-import java.io.BufferedReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.*;
 
-// javac -classpath ".;junit-platform-console-standalone-1.7.0-M1.jar" *.java 
-// java -classpath ".;junit-platform-console-standalone-1.7.0-M1.jar" org.junit.runner.JUnitCore Lab14_Tester
 public class Client {
 
     private String host;
@@ -13,10 +10,13 @@ public class Client {
     private PrintWriter out;
     private String key = "12345";
 
-    public Client(String host, int port) {
-        // connect socket, create reader/writer
+    public Client(String host, int port) throws Exception {
         this.host = host;
         this.port = port;
+
+        socket = new Socket(host, port);
+        in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        out = new PrintWriter(socket.getOutputStream());
     }
 
     public Socket getSocket() {
@@ -24,18 +24,39 @@ public class Client {
     }
 
     public void handshake() {
-        // send key
+        out.println(key);
+        out.flush();
     }
 
     public String request(String msg) {
-        return null;    // send/receive one message
+        try {
+            out.println(msg);
+            out.flush();
+            String line = in.readLine();
+            return line;
+        }
+        catch (Exception e) {
+            return "An exception happened.";
+        }
     }
 
     public void disconnect() {
-        // close streams + socket
-    }
+        try {
+            in.close();
+        }
+        catch (Exception e) {
+        }
 
-    public static void main () {
+        try {
+            out.close();
+        }
+        catch (Exception e) {
+        }
 
+        try {
+            socket.close();
+        }
+        catch (Exception e) {
+        }
     }
 }
