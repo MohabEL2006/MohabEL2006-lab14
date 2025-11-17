@@ -1,32 +1,32 @@
-import java.net.Socket;
+import java.net.*;
 import java.time.*;
-import java.util.ArrayList;
+import java.util.ArrayList;;
 
-public class Server extends Socket{
+public class Server {
 
     private int port;
-    private ArrayList<Client> clients;
+    private ServerSocket serverSocket;
+    private ArrayList<Socket> clients = new ArrayList<>();
+    private ArrayList<LocalDateTime> connectedTimes = new ArrayList<>();
 
-    public Server (int port) {
-        this.port = port;
+    public Server(int port) {
+        // create or store socket
     }
 
     public void serve(int num) {
-
-    }
-
-    public void disconnect() {
-
-    }
-
-    public void addClient(ArrayList clientList) {
-        
+        // accept num connections, check handshake, process request
     }
 
     public ArrayList<LocalDateTime> getConnectedTimes() {
-        return null;
+        return connectedTimes;
     }
 
-     public static void main(String args[]){
+    public void disconnect() {
+        // close serverSocket
     }
-}
+
+    public static void main() {
+
+    }
+} 
+
